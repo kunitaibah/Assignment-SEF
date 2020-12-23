@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/table-column-options.css" />
+		<link href="https://file.myfontastic.com/qjiXjhoPnW8zm8Sb5o2BHW/icons.css" rel="stylesheet">
+		<style>
+			body, html
+			{
+				height: 100%;
+				background-color: #002a64;
+				scroll-behavior: smooth;
+				font-family: Arial, Helvetica, sans-serif;
+				color: #ffffff;
+			}
+			
+			.navbar
+			{
+			  overflow: hidden;
+			  background-color: #002a64;
+			  font-family: Arial, Helvetica, sans-serif;
+			  position: static;
+			  margin-top: -8px;
+			  margin-left: -8px;
+			  margin-right: -8px;
+			  padding: 5px;
+			}
+
+			.navbar a
+			{
+			  float: left;
+			  font-size: 16px;
+			  color: white;
+			  text-align: center;
+			  padding: 14px 16px;
+			  text-decoration: none;
+			  overflow: hidden;
+			  position: relative;
+			}
+			
+			.admin-dashboard-nav
+			{
+				float: right;
+			}
+			
+			.dropdown
+			{
+			  float: right;
+			  overflow: hidden;
+			}
+
+			.dropdown .dropbtn
+			{
+			  cursor: pointer;
+			  font-size: 16px;  
+			  border: none;
+			  outline: none;
+			  color: white;
+			  padding: 14px 16px;
+			  background-color: inherit;
+			  font-family: inherit;
+			  margin: 0;
+			}
+
+			.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus
+			{
+			  background-color: red;
+			}
+
+			.dropdown-content
+			{
+			  display: none;
+			  position: absolute;
+			  background-color: #f9f9f9;
+			  min-width: 150px;
+			  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			  z-index: 1;
+			  right: 0;
+			  margin-top: 5px;
+			}
+
+			.dropdown-content a {
+			  float: none;
+			  color: black;
+			  padding: 12px 16px;
+			  text-decoration: none;
+			  display: block;
+			  text-align: left;
+			}
+
+			.dropdown-content a:hover
+			{
+			  background-color: #ddd;
+			}
+
+			.show
+			{
+			  display: block;
+			}
+			
+			.dummy-text
+			{
+				color: white;
+				margin-top: 20%;
+			}
+			
+			#dashboard-title
+			{
+				color: white;
+				margin-top: 10%;
+				padding: 20px;
+				text-align: center;
+			}
+			
+			.dashboard-panel
+			{
+				height: 200px;
+				width: 200px;
+				background-color: #f7f7f7;
+				overflow: hidden;
+				display: inline-block;
+				padding: 10px;
+				margin: 30px;
+			}
+			
+			#row1
+			{
+				margin-top: 3%;
+				margin-left: 31%;				
+			}
+			
+			#row2
+			{
+				margin-left: 31%;
+				margin-bottom: 10%;
+			}
+			
+			.image
+			{
+				height: 200px;
+				width: 200px;
+			}
+			
+			.container
+			{
+				position: relative;
+				width: 200px;
+				height: 200px;
+			}
+
+			.overlay
+			{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				width: 100%;
+				opacity: 0;
+				transition: .5s ease;
+				background-color: #008CBA;
+			}
+
+			.container:hover .overlay
+			{
+				opacity: 1;
+			}
+
+			.text
+			{
+				color: white;
+				font-size: 20px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+				text-align: center;
+			}
+			
+			#event-title
+			{
+				text-align: center;
+				padding: 20px;
+				color: black;
+			}
+			
+			.event-dashboard
+			{
+				background-color: #cae2fd;
+				width: 101.5%;
+				height: auto;
+				margin-left: -1%;
+				padding: 20px 0px 20px 0px;
+			}
+			
+			.event-list-panel
+			{
+				height: 200px;
+				width: 200px;
+				background-color: #f7f7f7;
+				overflow: hidden;
+				display: inline-block;
+				margin-top: 3%;
+			}
+			
+			.event-container
+			{
+				margin-left: 30%;
+				margin-bottom: 20%;
+			}
+			
+			.event-row1, .event-row2
+			{
+				height: 30%;
+			}
+			
+			.event-desc-panel
+			{
+				width: 200px;
+				color: black;
+				display: inline-block;
+				padding: 20px 0px 20px 0px;				
+			}
+			
+			.event-tools-panel img
+			{
+				height: 30px;
+				padding: 0px 20px 0px 20px;
+			}
+			
+			.event-tools-panel
+			{
+				display: inline-block;
+				width: 200px;
+				text-align: center;
+				padding: 20px 0px 20px 0px;
+			}
+			
+			.button-float
+			{
+				width:60px;
+				height:60px;
+				bottom:40px;
+				right:40px;
+			}
+			
+			.float
+			{
+				position:fixed;
+				width:60px;
+				height:60px;
+				bottom:40px;
+				right:40px;
+				background-color:#ffa500;
+				color:#FFF;
+				border-radius:50px;
+				text-align:center;
+			}
+
+			.my-float
+			{
+				margin-top:22px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="dropdown">
+				<button class="dropbtn" onclick="myFunction()">Menu
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content" id="myDropdown">
+					<a href="Admin Homepage.html">Home</a>
+					<a href="#profile">Profile</a>
+					<a href="#login">Log In</a>
+					<a href="#contacts">Contact Us</a>
+					<a href="#credits">Credits</a>
+				 </div>
+			 </div>
+			 <div class="admin-dashboard-nav">
+				<a href="#dashboard-title" class="admin-dashboard-button">Admin Dashboard</a>
+			</div>
+		</div>
+		<div class="event-dashboard">
+			<h2 id="event-title">Events List</h2>
+			<div class="event-container">
+				<div class="event-row1">
+					<div class="event-list-panel">
+						<div class="container">
+							<div class="event-row-icon">
+								<img src="Images/event_disp1_icon.jpg" alt="Event1 Icon" class="image"></img>
+							</div>
+							<div class="overlay">
+								<div class="text">Event 1</div>
+							</div>
+						</div>
+					</div>
+					<div class="event-list-panel">
+						<div class="container">
+							<div class="event-row-icon">
+								<img src="Images/event_disp2_icon.jpg" alt="Event2 Icon" class="image" ></img>
+								<div class="overlay">
+									<div class="text">Event 2</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="event-list-panel">
+						<div class="container">
+							<div class="event-row-icon">
+								<img src="Images/event_disp3_icon.jpg" alt="Event3 Icon" class="image" ></img>
+								<div class="overlay">
+									<div class="text">Event 3</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="event-desc-row1">
+					<div class="event-desc-panel">
+						<div class="event-desc">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis. Sollicitudin tempor id eu nisl.
+						</div>
+					</div>
+					<div class="event-desc-panel">
+						<div class="event-desc">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis. Sollicitudin tempor id eu nisl.
+						</div>
+					</div>
+					<div class="event-desc-panel">
+						<div class="event-desc">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis. Sollicitudin tempor id eu nisl.
+						</div>
+					</div>
+				</div>
+				<div class="event-tools-nav">
+					<div class="event-tools-panel">
+						<div class="event-tools">
+							<a href="View Event Page.html"><img src="Images/view_icon.png" alt="View Icon" ></img></a>
+							<a href="Approval Event Page.html"><img src="Images/edit_tool.png" alt="Edit Icon" ></img></a>
+						</div>
+					</div>
+					<div class="event-tools-panel">
+						<div class="event-tools">
+							<a href="View Event Page.html"><img src="Images/view_icon.png" alt="View Icon" ></img></a>
+							<a href="Approval Event Page.html"><img src="Images/edit_tool.png" alt="Edit Icon" ></img></a>
+						</div>
+					</div>
+					<div class="event-tools-panel">
+						<div class="event-tools">
+							<a href="View Event Page.html"><img src="Images/view_icon.png" alt="View Icon" ></img></a>
+							<a href="Approval Event Page.html"><img src="Images/edit_tool.png" alt="Edit Icon" ></img></a>
+						</div>
+					</div>
+				</div>
+				<div class="event-row2">
+					<div class="event-list-panel">
+						<div class="container">
+							<div class="event-row-icon">
+								<img src="Images/event_disp1_icon.jpg" alt="Event4 Icon" class="image" ></img>
+							</div>
+							<div class="overlay">
+								<div class="text">Event 4</div>
+							</div>
+						</div>
+					</div>
+					<div class="event-list-panel">
+						<div class="container">
+							<div class="event-row-icon">
+								<img src="Images/event_disp2_icon.jpg" alt="Event5 Icon" class="image"></img>
+							</div>
+							<div class="overlay">
+								<div class="text">Event 5</div>
+							</div>
+						</div>
+					</div>
+					<div class="event-list-panel">
+						<div class="container">
+							<div class="event-row-icon">
+								<img src="Images/event_disp3_icon.jpg" alt="Event6 Icon" class="image"></img>
+							</div>
+							<div class="overlay">
+								<div class="text">Event 6</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="event-desc-row2">
+					<div class="event-desc-panel">
+						<div class="event-desc">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis. Sollicitudin tempor id eu nisl.
+						</div>
+					</div>
+					<div class="event-desc-panel">
+						<div class="event-desc">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis. Sollicitudin tempor id eu nisl.
+						</div>
+					</div>
+					<div class="event-desc-panel">
+						<div class="event-desc">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At volutpat diam ut venenatis. Sollicitudin tempor id eu nisl.
+						</div>
+					</div>
+				</div>
+				<div class="event-tools-nav">
+					<div class="event-tools-panel">
+						<div class="event-tools">
+							<a href="View Event Page.html"><img src="Images/view_icon.png" alt="View Icon" ></img></a>
+							<a href="Approval Event Page.html"><img src="Images/edit_tool.png" alt="Edit Icon" ></img></a>
+						</div>
+					</div>
+					<div class="event-tools-panel">
+						<div class="event-tools">
+							<a href="View Event Page.html"><img src="Images/view_icon.png" alt="View Icon" ></img></a>
+							<a href="Approval Event Page.html"><img src="Images/edit_tool.png" alt="Edit Icon" ></img></a>
+						</div>
+					</div>
+					<div class="event-tools-panel">
+						<div class="event-tools">
+							<a href="View Event Page.html"><img src="Images/view_icon.png" alt="View Icon" ></img></a>
+							<a href="Approval Event Page.html"><img src="Images/edit_tool.png" alt="Edit Icon" ></img></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="admin-dashboard">
+			<h2 id="dashboard-title">Admin Dashboard</h2>
+			<div class="dashboard-row" id="row1">
+				<div class="dashboard-panel" id="tenant-panel">
+					<div class="container">
+						<div class="tenant-icon">
+							<img src="Images/tenant_icon.jpg" alt="Tenant Icon" class="image"></img>
+						</div>
+						<div class="overlay">
+							<a href="#Tenant"><div class="text">Tenants</div></a>
+						</div>
+					</div>
+				</div>
+				<div class="dashboard-panel" id="notification-panel">
+					<div class="container">
+						<div class="notification-icon">
+							<img src="Images/notif_icon.jpg" alt="Notification Icon" class="image" ></img>
+							<div class="overlay">
+								<a href="#Notification"><div class="text">Notification</div></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="dashboard-row" id="row2">
+				<div class="dashboard-panel" id="shared-asset-panel">
+					<div class="container">
+						<div class="shared-asset-icon">
+							<img src="Images/shared_asset_icon.jpg" alt="Shared Asset Icon" class="image" ></img>
+						</div>
+						<div class="overlay">
+							<a href="Shared Asset Page.html"><div class="text">Shared Assets</div></a>
+						</div>
+					</div>
+				</div>
+				<div class="dashboard-panel" id="event-panel">
+					<div class="container">
+						<div class="event-icon">
+							<img src="Images/event_icon.jpg" alt="Event Icon" class="image"></img>
+						</div>
+						<div class="overlay">
+							<a href="Event List Page.html"><div class="text">Events</div></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			/* When the user clicks on the button, 
+			toggle between hiding and showing the dropdown content */
+			function myFunction()
+			{
+			  document.getElementById("myDropdown").classList.toggle("show");
+			}
+
+			// Close the dropdown if the user clicks outside of it
+			window.onclick = function(e)
+			{
+			  if (!e.target.matches('.dropbtn'))
+			  {
+				var myDropdown = document.getElementById("myDropdown");
+				
+				if (myDropdown.classList.contains('show'))
+				{
+				  myDropdown.classList.remove('show');
+				}
+			  }
+			}
+		</script>
+	</body>
+</html>
